@@ -3,7 +3,6 @@ var path = require('path');
 var humanize = require('underscore.string').humanize;
 var striptags = require('striptags');
 var excelBuilder = require('msexcel-builder');
-
 var unwrapCollection = require('jira-insight-api-wrapper').unwrapCollection;
 
 module.exports = collectionToExcel;
@@ -19,21 +18,26 @@ module.exports = collectionToExcel;
  */
 function collectionToExcel(options, next) {
 	var data = unwrapCollection(options.data);
+	var name = options.name || 'export_' + Date.now();
+	var folder = options.path || './tmp';
+	var filename = name + '.xlsx';
+
+	var rows;
+	var cols;
+	var headings;
+	var workbook;
+	var sheet1;
 
 	if (!data.objectEntries.length) {
 		return next(new Error('There are no objects to export'));
 	}
 
-	var rows = data.objectEntries.length + 2;
-	var headings = Object.keys(data.objectEntries[0]);
-	var cols = headings.length;
+	rows = data.objectEntries.length + 2;
+	headings = Object.keys(data.objectEntries[0]);
+	cols = headings.length;
 
-	var name = options.name || 'export_' + Date.now();
-	var filename = name + '.xlsx';
-	var folder = options.path || './tmp';
-
-	var workbook = excelBuilder.createWorkbook(folder, filename);
-	var sheet1 = workbook.createSheet('sheet1', cols, rows);
+	workbook = excelBuilder.createWorkbook(folder, filename);
+	sheet1 = workbook.createSheet('sheet1', cols, rows);
 
 	//Fill in headers:
 	_.each(headings, function(th, index) {
