@@ -1,0 +1,26 @@
+{
+  "name": "jira-insight-export-xls",
+  "version": "0.0.1",
+  "description": "Takes an Insight (Jira plugin) collection and creates an xls file.",
+  "engines": {
+    "node": ">=0.10.3"
+  },
+  "license": "Public domain",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cthurston/jira-insight-export-xls.git"
+  },
+  "dependencies": {
+    "lodash": "^4.0.0",
+    "msexcel-builder": "0.0.2",
+    "striptags": "^2.1.1",
+    "underscore.string": "^3.2.3"
+  },
+  "optionalDependencies": {
+    "jira-insight-api-wrapper": "0.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4"
+  }
+}
